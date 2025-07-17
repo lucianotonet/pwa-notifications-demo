@@ -4,6 +4,7 @@
 /public/build
 /public/hot
 /public/storage
+/public/sw.js
 /storage/*.key
 /storage/pail
 /vendor
