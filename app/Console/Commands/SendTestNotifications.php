@@ -2,10 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\AnonymousSubscriber;
-use App\Notifications\TestNotification;
+use App\Actions\SendPushNotificationToAllAction;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Notification;
 
 class SendTestNotifications extends Command
 {
@@ -26,19 +24,15 @@ class SendTestNotifications extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(SendPushNotificationToAllAction $sendAction)
     {
-        // Busca todos os inscritos que possuem uma assinatura de push ativa
-        $subscribers = AnonymousSubscriber::whereHas('pushSubscriptions')->get();
+        $this->info('Enviando notificações de teste automáticas...');
 
-        if ($subscribers->isEmpty()) {
-            $this->info('Nenhum inscrito encontrado.');
-            return;
-        }
+        $title = 'Notificação Agendada PoC';
+        $body = 'Esta é uma mensagem de teste agendada. Horário: ' . now()->toDateTimeString();
 
-        // Envia a notificação para a coleção de inscritos
-        Notification::send($subscribers, new TestNotification());
+        $sendAction->execute($title, $body);
 
-        $this->info('Notificações enviadas para ' . $subscribers->count() . ' inscritos.');
+        $this->info('Notificações enviadas com sucesso.');
     }
 }

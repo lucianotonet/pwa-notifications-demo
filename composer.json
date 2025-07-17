@@ -14,6 +14,7 @@
         "laravel-notification-channels/webpush": "^10.2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "minishlink/web-push": "^9.0",
         "tightenco/ziggy": "^2.4"
     },
     "require-dev": {

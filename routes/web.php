@@ -33,5 +33,13 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Rotas para envio manual de notificações
+Route::post('/notifications/send', [\App\Http\Controllers\NotificationController::class, 'send'])->name('notifications.send');
+
+// Rota para a página de teste manual
+Route::get('/push-test', function () {
+    return Inertia::render('PushTest');
+})->name('push.test');
+
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
