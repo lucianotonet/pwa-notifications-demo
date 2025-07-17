@@ -1,0 +1,25 @@
+{
+    "name": "PWA Push Notifications Demo",
+    "short_name": "PWA Demo",
+    "description": "Prova de Conceito para PWA com notificações push",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#3b82f6",
+    "lang": "en",
+    "scope": "/build/",
+    "icons": [
+        {
+            "src": "pwa-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "pwa-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

@@ -2,10 +2,32 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Models\AnonymousSubscriber;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
+
+// Rota para fornecer a chave pública VAPID ao frontend
+Route::get('/vapid-public-key', function () {
+    return response()->json(['key' => config('webpush.vapid.public_key')]);
+});
+
+// Rota para receber e salvar a inscrição do navegador
+Route::post('/subscribe', function (Request $request) {
+    // Cria um novo "assinante anônimo" a cada inscrição bem-sucedida
+    $subscriber = AnonymousSubscriber::create();
+
+    // Salva os detalhes da inscrição associados a este novo assinante
+    $subscriber->updatePushSubscription(
+        $request->input('endpoint'),
+        $request->input('keys.p256dh'),
+        $request->input('keys.auth')
+    );
+
+    return response()->json(['success' => true]);
+});
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
