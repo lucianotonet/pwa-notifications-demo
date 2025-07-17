@@ -15,9 +15,10 @@ self.addEventListener('activate', function (event) {
 });
 
 self.addEventListener('push', (event) => {
-    const data = event.data.json();
-    self.registration.showNotification(data.title, {
-        body: data.body,
+    const data = event.data ? event.data.json() : {};
+
+    const showNotificationPromise = self.registration.showNotification(data.title || 'Nova notificação', {
+        body: data.body || '',
         icon: '/pwa-192x192.png', // Caminho para o ícone
         badge: '/pwa-192x192.png',
         actions: [
@@ -25,9 +26,12 @@ self.addEventListener('push', (event) => {
             { action: 'close', title: 'Fechar' },
         ],
         data: {
-            url: data.url, // URL para abrir ao clicar
+            url: data.url || '/', // URL para abrir ao clicar
         }
     });
+
+    // Garante que o navegador espere a exibição da notificação
+    event.waitUntil(showNotificationPromise);
 });
 
 self.addEventListener('notificationclick', (event) => {
