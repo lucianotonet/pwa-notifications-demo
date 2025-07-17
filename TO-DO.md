@@ -5,6 +5,7 @@ O código do PoC para notificações push está **completo e funcional**, seguin
 
 - **Backend:** Utiliza o wrapper `laravel-notification-channels/webpush`, integrado com o sistema de Notificações e Queues do Laravel 12. A lógica está encapsulada em uma `Action` e uma classe de `Notification`, e as rotas e controllers foram implementados corretamente.
 - **Frontend:** A página de teste manual (`/push-test`) usa o `router` do Inertia.js para fazer os posts, e o feedback para o usuário (sucesso/erro) é gerenciado via flash messages, que é o padrão recomendado.
+- **Refinamento do Service Worker:** O ciclo de vida do Service Worker (`sw.js`) foi otimizado com `skipWaiting()` e `clients.claim()` para garantir atualizações mais rápidas e evitar notificações do navegador sobre "site atualizado em segundo plano".
 - **O Problema:** O envio de notificações está **falhando apenas no ambiente de desenvolvimento local (Windows + Laragon)**. O log de erro em `@storage/logs/laravel.log` confirma o erro `Unable to create the local key.`. Isso é causado por uma incompatibilidade da biblioteca de criptografia com a configuração do OpenSSL no Windows. O código está correto, mas o ambiente o impede de funcionar.
 
 ### 🎯 Objetivo Final

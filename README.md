@@ -38,7 +38,8 @@ A aplicação é dividida em duas áreas principais:
 ### Frontend: A Interação com o Usuário (Vue 3)
 
 1.  **Configuração PWA (`vite-plugin-pwa`):** Utilizamos este plugin para automatizar a criação do `manifest.webmanifest` e do `sw.js` (Service Worker), garantindo que a aplicação atenda aos critérios de um PWA.
-2.  **Service Worker (`sw.js`):** Este script roda em segundo plano no navegador. Ele tem dois papéis principais:
+2.  **Service Worker (`sw.js`):** Este script roda em segundo plano no navegador. Ele tem três papéis principais:
+    *   Gerenciar seu próprio ciclo de vida com os eventos `install` (usando `self.skipWaiting()`) e `activate` (usando `self.clients.claim()`), garantindo que a versão mais recente do PWA seja ativada rapidamente e sem a necessidade de o usuário fechar todas as abas. Isso evita notificações indesejadas do navegador sobre "site atualizado em segundo plano".
     *   Ouvir o evento `push` e exibir a notificação recebida.
     *   Ouvir o evento `notificationclick` para abrir a aplicação quando o usuário interage com a notificação.
 3.  **Interface de Inscrição (`Welcome.vue`):** O componente principal da aplicação orquestra todo o fluxo do usuário com uma lógica clara:

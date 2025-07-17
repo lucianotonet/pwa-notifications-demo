@@ -177,6 +177,16 @@ import { precacheAndRoute } from 'workbox-precaching';
 // O Workbox injetará o manifesto de precache aqui.
 precacheAndRoute(self.__WB_MANIFEST);
 
+self.addEventListener('install', function (event) {
+    // Força o novo Service Worker a se tornar ativo imediatamente.
+    event.waitUntil(self.skipWaiting());
+});
+
+self.addEventListener('activate', function (event) {
+    // Permite que o Service Worker ativo assuma o controle de todos os clientes (abas) imediatamente.
+    event.waitUntil(self.clients.claim());
+});
+
 self.addEventListener('push', (event) => {
     const data = event.data.json();
     self.registration.showNotification(data.title, {

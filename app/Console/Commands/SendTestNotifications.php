@@ -28,8 +28,8 @@ class SendTestNotifications extends Command
     {
         $this->info('Enviando notificações de teste automáticas...');
 
-        $title = 'Notificação Agendada PoC';
-        $body = 'Esta é uma mensagem de teste agendada. Horário: ' . now()->toDateTimeString();
+        $title = 'Notificação push de demonstração';
+        $body = 'Esta é uma mensagem de teste enviada pelo sistema. Horário: ' . now()->toDateTimeString();
 
         $sendAction->execute($title, $body);
 
