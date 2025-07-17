@@ -115,11 +115,14 @@ async function subscribe() {
             applicationServerKey,
         });
 
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
         await fetch('/subscribe', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Accept: 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
             },
             body: JSON.stringify(subscription),
         });
